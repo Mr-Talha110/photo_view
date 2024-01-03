@@ -129,27 +129,18 @@ mixin PhotoViewControllerDelegate on State<PhotoViewCore> {
       scaleStateController.scaleState = scaleStateCycle(scaleState);
       return;
     }
-    final double originalScale = getScaleForScaleState(
-      scaleState,
-      scaleBoundaries,
-    );
 
-    double prevScale = originalScale;
-    PhotoViewScaleState prevScaleState = scaleState;
-    double nextScale = originalScale;
-    PhotoViewScaleState nextScaleState = scaleState;
-
-    do {
-      prevScale = nextScale;
-      prevScaleState = nextScaleState;
-      nextScaleState = scaleStateCycle(prevScaleState);
-      nextScale = getScaleForScaleState(nextScaleState, scaleBoundaries);
-    } while (prevScale == nextScale && scaleState != nextScaleState);
-
-    if (originalScale == nextScale) {
+    if (scaleState == PhotoViewScaleState.initial) {
+      print('iszoomed hogya');
+      scaleStateController.scaleState = PhotoViewScaleState.originalSize;
       return;
     }
-    scaleStateController.scaleState = nextScaleState;
+
+    if (scaleState == PhotoViewScaleState.originalSize) {
+      print('unzoomed ');
+      scaleStateController.scaleState = PhotoViewScaleState.initial;
+      return;
+    }
   }
 
   CornersRange cornersX({double? scale}) {
