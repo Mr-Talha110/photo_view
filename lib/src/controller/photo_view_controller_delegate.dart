@@ -131,13 +131,11 @@ mixin PhotoViewControllerDelegate on State<PhotoViewCore> {
     }
 
     if (scaleState == PhotoViewScaleState.initial) {
-      print('iszoomed hogya');
       scaleStateController.scaleState = PhotoViewScaleState.originalSize;
       return;
     }
 
     if (scaleState == PhotoViewScaleState.originalSize) {
-      print('unzoomed ');
       scaleStateController.scaleState = PhotoViewScaleState.initial;
       return;
     }
